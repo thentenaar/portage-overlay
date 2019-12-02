@@ -1,0 +1,91 @@
+diff -ru a/test/cache.test b/test/cache.test
+--- a/test/cache.test	2017-10-14 04:48:11.000000000 +0200
++++ b/test/cache.test	2019-11-24 02:44:57.327430588 +0100
+@@ -9,8 +9,9 @@
+ testsNeedTcltest 2
+ 
+ support {
+-    useLocal lib/lassign84/lassign.tcl  lassign84
+-    useLocal lib/dict84/dict.tcl        dict84
++    useLocal lib/lassign84/lassign.tcl lassign84
++    useLocal lib/lmap84/lmap.tcl       lmap84
++    useLocal lib/dict84/dict.tcl       dict84
+ 
+     useLocal lib/stubs_container/container.tcl stubs::container
+     useLocal lib/stubs_reader/reader.tcl       stubs::reader
+diff -ru a/test/suites/ccommand.test b/test/suites/ccommand.test
+--- a/test/suites/ccommand.test	2017-10-14 04:48:11.000000000 +0200
++++ b/test/suites/ccommand.test	2019-11-24 00:29:02.391881663 +0100
+@@ -22,6 +22,7 @@
+ 
+ support {
+     useLocal lib/lassign84/lassign.tcl  lassign84
++    useLocal lib/lmap84/lmap.tcl        lmap84
+     useLocal lib/dict84/dict.tcl        dict84
+ 
+     useLocal lib/stubs_container/container.tcl stubs::container
+diff -ru a/test/suites/cconst.test b/test/suites/cconst.test
+--- a/test/suites/cconst.test	2017-10-14 04:48:11.000000000 +0200
++++ b/test/suites/cconst.test	2019-11-24 00:29:13.680881039 +0100
+@@ -22,6 +22,7 @@
+ 
+ support {
+     useLocal lib/lassign84/lassign.tcl  lassign84
++    useLocal lib/lmap84/lmap.tcl        lmap84
+     useLocal lib/dict84/dict.tcl        dict84
+ 
+     useLocal lib/stubs_container/container.tcl  stubs::container
+diff -ru a/test/suites/cdata.test b/test/suites/cdata.test
+--- a/test/suites/cdata.test	2017-10-14 04:48:11.000000000 +0200
++++ b/test/suites/cdata.test	2019-11-24 00:29:48.201879129 +0100
+@@ -22,6 +22,7 @@
+ 
+ support {
+     useLocal lib/lassign84/lassign.tcl  lassign84
++    useLocal lib/lmap84/lmap.tcl        lmap84
+     useLocal lib/dict84/dict.tcl        dict84
+ 
+     useLocal lib/stubs_container/container.tcl  stubs::container
+diff -ru a/test/suites/cproc.test b/test/suites/cproc.test
+--- a/test/suites/cproc.test	2017-10-14 04:48:11.000000000 +0200
++++ b/test/suites/cproc.test	2019-11-24 00:30:28.065876924 +0100
+@@ -22,7 +22,8 @@
+ 
+ support {
+     useLocal lib/lassign84/lassign.tcl  lassign84
+-    useLocal lib/dict84/dict.tcl         dict84
++    useLocal lib/lmap84/lmap.tcl        lmap84
++    useLocal lib/dict84/dict.tcl        dict84
+ 
+     useLocal lib/stubs_container/container.tcl  stubs::container
+     useLocal lib/stubs_reader/reader.tcl        stubs::reader
+diff -ru a/test/util_def.test b/test/util_def.test
+--- a/test/util_def.test	2017-10-14 04:48:11.000000000 +0200
++++ b/test/util_def.test	2019-11-24 00:33:53.537865559 +0100
+@@ -9,8 +9,9 @@
+ testsNeedTcltest 2
+ 
+ support {
+-    useLocal lib/lassign84/lassign.tcl  lassign84
+-    useLocal lib/dict84/dict.tcl     dict84
++    useLocal lib/lassign84/lassign.tcl lassign84
++    useLocal lib/lmap84/lmap.tcl       lmap84
++    useLocal lib/dict84/dict.tcl       dict84
+ 
+     useLocal lib/stubs_container/container.tcl stubs::container
+     useLocal lib/stubs_reader/reader.tcl       stubs::reader
+diff -ru a/test/util_undef.test b/test/util_undef.test
+--- a/test/util_undef.test	2017-10-14 04:48:11.000000000 +0200
++++ b/test/util_undef.test	2019-11-24 00:34:23.128863922 +0100
+@@ -9,8 +9,9 @@
+ testsNeedTcltest 2
+ 
+ support {
+-    useLocal lib/lassign84/lassign.tcl  lassign84
+-    useLocal lib/dict84/dict.tcl     dict84
++    useLocal lib/lassign84/lassign.tcl lassign84
++    useLocal lib/lmap84/lmap.tcl       lmap84
++    useLocal lib/dict84/dict.tcl       dict84
+ 
+     useLocal lib/stubs_container/container.tcl stubs::container
+     useLocal lib/stubs_reader/reader.tcl       stubs::reader

@@ -1,0 +1,40 @@
+diff -ru a/ClientSide.tcl b/ClientSide.tcl
+--- a/ClientSide.tcl	2019-11-29 00:20:19.220184230 +0100
++++ b/ClientSide.tcl	2019-11-29 12:28:48.645766525 +0100
+@@ -1349,7 +1349,7 @@
+ #
+ #
+ ###########################################################################
+-proc ::WS::Client::CreateStubs {serviceName} {
++proc ::WS::Client::CreateStubs {serviceName {async false}} {
+     variable serviceArr
+ 
+     namespace eval [format {::%s::} $serviceName] {}
+@@ -1405,11 +1405,23 @@
+             foreach var [namespace eval ::${serviceName}:: [list info args $operationName]] {
+                 lappend argList $var [set $var]
+             }
+-            ::log::logsubst debug {::WS::Client::DoCall $serviceName $operationName $argList}
+-            ::WS::Client::DoCall $serviceName $operationName $argList
+         }
+-        proc $procName $argList $body
+-        append procList "\n\t[list $procName $argList]"
++
++        if {$async ne false} {
++            append body {;
++                ::log::logsubst debug {::WS::Client::DoAsyncCall $serviceName $operationName $argList}
++                ::WS::Client::DoAsyncCall $serviceName $operationName $argList $on_success $on_error
++            }
++            proc $procName [lappend argList on_success on_error] $body
++            append procList "\n\t[list $procName $argList]"
++        } else {
++            append body {;
++                ::log::logsubst debug {::WS::Client::DoCall $serviceName $operationName $argList}
++                ::WS::Client::DoCall $serviceName $operationName $argList
++            }
++            proc $procName $argList $body
++            append procList "\n\t[list $procName $argList]"
++       }
+     }
+     return "$procList\n"
+ }

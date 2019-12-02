@@ -1,0 +1,36 @@
+--- a/build.tcl	2017-10-14 04:48:11.000000000 +0200
++++ b/build.tcl	2019-11-25 01:04:41.969984263 +0100
+@@ -338,8 +338,8 @@
+ 	set dstl [info library]
+ 	set dsta [file dirname [file dirname [file normalize [info nameofexecutable]/___]]]
+     } else {
+-	set dstl [lindex $args 0]
+-	set dsta [file dirname [findlib $dstl]]/bin
++	set dstl [lindex $args 0]@LIBDIR@
++	set dsta [lindex $args 0][file dirname [info nameofexecutable]]
+     }
+ 
+     set selfdir [file dirname $me]
+@@ -383,12 +383,10 @@
+ 	# Application: critcl
+ 
+ 	set theapp  [critapp     $dsta]
+-	set reldstl [dstlfromlib $dstl]
+-
+ 	set c [open $theapp w]
+ 	lappend map @bs@   "\\"
+ 	lappend map @exe@  [file dirname [file normalize [info nameofexecutable]/___]]
+-	lappend map @path@ $reldstl  ;# insert the dst path
++	lappend map @path@ $dstl  ;# insert the dst path
+ 	lappend map "\t    " {} ;# de-dent
+ 	puts $c [string trimleft [string map $map {
+ 	    #!/bin/sh
+@@ -429,7 +427,7 @@
+ 	if {$target ne {}} {
+ 	    lappend cmd -target $target
+ 	}
+-	lappend cmd -libdir $dstl/tmp -pkg $src
++	lappend cmd -debug symbols -libdir $dstl/tmp -pkg $src
+ 	eval $cmd
+ 
+ 	file delete -force $dst

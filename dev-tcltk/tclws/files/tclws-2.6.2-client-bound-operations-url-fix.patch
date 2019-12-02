@@ -1,0 +1,61 @@
+diff -ru a/ClientSide.tcl b/ClientSide.tcl
+--- a/ClientSide.tcl	2019-11-30 21:38:09.448164308 +0100
++++ b/ClientSide.tcl	2019-12-01 00:55:01.148510966 +0100
+@@ -1498,8 +1498,11 @@
+     ##
+     ## build query
+     ##
++    set url [dict get $serviceInfo operation $operationName location]
++    if {$url eq {}} {
++        set url [dict get $serviceInfo location]
++    }
+ 
+-    set url [dict get $serviceInfo location]
+     SaveAndSetOptions $serviceName
+     if {[catch {set query [buildCallquery $serviceName $operationName $url $argList]} err]} {
+         RestoreSavedOptions $serviceName
+@@ -1604,7 +1607,11 @@
+             "Operation '$operationName' for service '$serviceName' is overloaded, you must call one of its clones."
+     }
+ 
+-    set url [dict get $serviceInfo location]
++    set url [dict get $serviceInfo operation $operationName location]
++    if {$url eq {}} {
++        set url [dict get $serviceInfo location]
++    }
++
+     SaveAndSetOptions $serviceName
+     if {[catch {set query [buildCallquery $serviceName $operationName $url $argList]} err]} {
+         RestoreSavedOptions $serviceName
+@@ -2882,8 +2889,13 @@
+     ## Parse bindings
+     ##
+     foreach port [$serviceNode getElementsByTagName port]  {
++        set loc $location
+         set bindingName [lindex [split [$port getAttribute binding] {:}] end]
+-        parseBinding $wsdlNode $serviceName $bindingName serviceInfo
++        set addressNode [lindex [$port getElementsByTagNameNS http://schemas.xmlsoap.org/wsdl/soap/ address] 0]
++        if {[$addressNode hasAttribute location]} {
++            set loc [$addressNode getAttribute location]
++        }
++        parseBinding $wsdlNode $serviceName $bindingName $loc serviceInfo
+     }
+ 
+     ##
+@@ -3001,7 +3013,7 @@
+ #
+ #
+ ###########################################################################
+-proc ::WS::Client::parseBinding {wsdlNode serviceName bindingName serviceInfoVar} {
++proc ::WS::Client::parseBinding {wsdlNode serviceName bindingName location serviceInfoVar} {
+     ::log::log debug "Entering [info level 0]"
+     upvar 1 $serviceInfoVar serviceInfo
+     variable options
+@@ -3111,6 +3123,7 @@
+             dict set serviceInfo operation $operName cloned 0
+             dict set serviceInfo operation $operName name $baseName
+             dict set serviceInfo operation $operName style $style
++            dict set serviceInfo operation $operName location $location
+             catch {
+                 set action [$actionNode getAttribute soapAction]
+                 dict set serviceInfo operation $operName action $action

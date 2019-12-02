@@ -1,0 +1,21 @@
+diff -ru a/ClientSide.tcl b/ClientSide.tcl
+--- a/ClientSide.tcl	2019-11-20 19:44:54.000000000 +0100
++++ b/ClientSide.tcl	2019-11-29 13:35:22.846545594 +0100
+@@ -1393,7 +1393,7 @@
+           set inputFields {}
+         }
+         if {$inputFields ne {}} {
+-            lappend argList [lsort -dictionary $inputFields]
++            lappend argList $inputFields
+         }
+         set argList [join $argList]
+ 
+@@ -1905,7 +1905,7 @@
+             if {[dict exists $inTypeDef definition]} {
+                 set inputFields [dict keys [dict get $inTypeDef definition]]
+                 if {$inputFields ne {}} {
+-                    lappend argList [lsort -dictionary $inputFields]
++                    lappend argList $inputFields
+                 }
+             }
+         }

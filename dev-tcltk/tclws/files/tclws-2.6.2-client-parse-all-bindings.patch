@@ -1,0 +1,23 @@
+diff -ru a/ClientSide.tcl b/ClientSide.tcl
+--- a/ClientSide.tcl	2019-11-28 17:07:41.175722817 +0100
++++ b/ClientSide.tcl	2019-11-28 17:08:56.343718659 +0100
+@@ -2860,7 +2860,6 @@
+     CreateService $serviceName WSDL $location $target xns $xns
+     set serviceInfo $serviceArr($serviceName)
+     dict set serviceInfo tnsList $tnsDict
+-    set bindingName [lindex [split [$portNode getAttribute binding] {:}] end]
+ 
+     ##
+     ## Parse types
+@@ -2870,7 +2869,10 @@
+     ##
+     ## Parse bindings
+     ##
+-    parseBinding $wsdlNode $serviceName $bindingName serviceInfo
++    foreach port [$serviceNode getElementsByTagName port]  {
++        set bindingName [lindex [split [$port getAttribute binding] {:}] end]
++        parseBinding $wsdlNode $serviceName $bindingName serviceInfo
++    }
+ 
+     ##
+     ## All done, so return results
