@@ -22,4 +22,9 @@ RDEPEND="
 	"
 DEPEND="${RDEPEND}"
 HTML_DOCS=(embedded/www)
+
+PATCHES=(
+	"${FILESDIR}"/${P}-tooltip-use-tktooltipfont.patch
+)
+
 S="${WORKDIR}/${PN}-${MY_PV}"
