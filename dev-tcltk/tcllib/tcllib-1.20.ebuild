@@ -1,7 +1,7 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=6
+EAPI=7
 
 inherit virtualx
 
@@ -12,7 +12,7 @@ SRC_URI="mirror://sourceforge/${PN}/${PN}/${PV}/${P}.tar.xz"
 LICENSE="BSD"
 SLOT="0"
 IUSE="examples"
-KEYWORDS="~alpha amd64 ~arm ~arm64 hppa ~ia64 ~mips ppc s390 sparc x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux"
 RESTRICT="!test? ( test )"
 
 RDEPEND="
@@ -22,28 +22,16 @@ RDEPEND="
 DEPEND="${RDEPEND}"
 
 DOCS=(
-	ChangeLog DESCRIPTION.txt README-1.19.txt README.developer
+	ChangeLog DESCRIPTION.txt README.md devdoc/README.developer
 	devdoc/critcl-tcllib.txt devdoc/dirlayout_install.txt
-	devdoc/indexing.txt devdoc/installation.txt
+	devdoc/indexing.txt
 )
-HTML_DOCS=( devdoc/devguide.html devdoc/releaseguide.html )
+HTML_DOCS=( idoc/www )
 
 PATCHES=(
 	"${FILESDIR}"/${P}-test.patch
-	"${FILESDIR}"/${P}-mdns.patch
+	"${FILESDIR}"/${PN}-1.19-mdns.patch
 )
-
-src_prepare() {
-	default
-	if has_version ">=dev-lang/tcl-8.6.9"; then
-		sed -i \
-			-e "s|::hook::call|call|" \
-			-e "s|::string::token::shell|shell|" \
-			"${S}"/modules/hook/hook.test \
-			"${S}"/modules/string/token_shell.test \
-			|| die
-	fi
-}
 
 src_test() {
 	USER= virtx emake test_batch

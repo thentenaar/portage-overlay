@@ -11,7 +11,7 @@ SRC_URI="https://github.com/andreas-kupries/critcl/archive/${PV}.tar.gz"
 
 SLOT="0"
 LICENSE="BSD"
-KEYWORDS="amd64"
+KEYWORDS="amd64 ~arm64"
 
 DEPEND="
 	>=dev-lang/tcl-8.6:0=

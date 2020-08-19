@@ -14,7 +14,7 @@ SRC_URI="mirror://sourceforge/${MY_PN}/${MY_PN}/${PV}/${MY_P}.tar.xz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="amd64 ~arm64"
+KEYWORDS="~amd64 ~arm64"
 RESTRICT="test"
 
 RDEPEND="
