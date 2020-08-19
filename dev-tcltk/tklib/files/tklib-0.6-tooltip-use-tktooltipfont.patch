@@ -1,0 +1,12 @@
+--- a/modules/tooltip/tooltip.tcl	2019-12-06 10:03:47.583648434 +0100
++++ b/modules/tooltip/tooltip.tcl	2019-12-13 14:09:14.684283607 +0100
+@@ -89,7 +89,8 @@
+ 	# label creation options.  Must be set prior to first registry
+ 	# of a tooltip, or destroy $::tooltip::G(TOPLEVEL) first.
+ 	set labelOpts [list -highlightthickness 0 -relief solid -bd 1 \
+-			   -background lightyellow -fg black]
++			   -background lightyellow -fg black -font TkTooltipFont]
++	catch {font create TkTooltipFont}
+     }
+ 
+     # The extra ::hide call in <Enter> is necessary to catch moving to
