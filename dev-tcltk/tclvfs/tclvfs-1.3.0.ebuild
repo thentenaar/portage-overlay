@@ -13,7 +13,7 @@ SRC_URI="https://core.tcl-lang.org/${PN}/tarball/${MY_PV}/${PN}-${MY_PV}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="amd64"
+KEYWORDS="amd64 ~arm64"
 RESTRICT="test"
 
 RDEPEND="
