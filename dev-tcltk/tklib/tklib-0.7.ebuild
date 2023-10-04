@@ -1,30 +1,42 @@
-# Copyright 2019 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-inherit eutils
+CODE=7832035fb9249dce
 
-MY_PV=4a6cbb19d1
-
-DESCRIPTION="Tk Standard Library"
+DESCRIPTION="Collection of utility modules for Tk, and a companion to Tcllib"
 HOMEPAGE="http://www.tcl.tk/software/tklib"
-SRC_URI="https://core.tcl-lang.org/${PN}/tarball/${MY_PV}/${PN}-${MY_PV}.tar.gz"
+SRC_URI="http://core.tcl.tk/${PN}/raw/${P}.tar.bz2?name=${CODE} -> ${P}.tar.bz2"
 
-LICENSE="BSD"
 SLOT="0"
-KEYWORDS="amd64 ~arm64"
-RESTRICT="test"
+KEYWORDS="amd64 ~x86"
+LICENSE="BSD"
+IUSE="doc"
 
 RDEPEND="
-	dev-lang/tk:0=
-	dev-tcltk/tcllib
-	"
+	dev-lang/tk:0
+	dev-tcltk/tcllib"
 DEPEND="${RDEPEND}"
-HTML_DOCS=(embedded/www)
 
 PATCHES=(
 	"${FILESDIR}"/${PN}-0.6-tooltip-use-tktooltipfont.patch
 )
 
-S="${WORKDIR}/${PN}-${MY_PV}"
+src_compile() {
+	default
+	use doc && emake doc
+}
+
+src_install() {
+	HTML_DOCS=
+	if use doc; then
+		HTML_DOCS=doc/html/*
+	fi
+	default
+	dodoc DESCRIPTION.txt
+	dosym ${PN}${PV} /usr/$(get_libdir)/${PN}
+
+	mv "${ED}"/usr/share/man/mann/datefield{,-${PN}}.n || die
+	mv "${ED}"/usr/share/man/mann/menubar{,-${PN}}.n || die
+}

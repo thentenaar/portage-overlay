@@ -9,7 +9,7 @@ SRC_URI="https://core.tcl.tk/tclws/tarball/${P}.tar.gz"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="amd64"
+KEYWORDS="~amd64"
 
 RDEPEND="
 	dev-lang/tcl:0=

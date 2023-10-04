@@ -1,9 +1,9 @@
 # Copyright 2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
-inherit eutils flag-o-matic multilib multilib-minimal
+inherit flag-o-matic multilib multilib-minimal
 
 DESCRIPTION="UDP for Tcl"
 HOMEPAGE="https://sourceforge.net/projects/tcludp"

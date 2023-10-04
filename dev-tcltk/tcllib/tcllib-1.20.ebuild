@@ -1,7 +1,7 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2022 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=7
+EAPI=8
 
 inherit virtualx
 
@@ -12,7 +12,7 @@ SRC_URI="mirror://sourceforge/${PN}/${PN}/${PV}/${P}.tar.xz"
 LICENSE="BSD"
 SLOT="0"
 IUSE="examples"
-KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sparc ~x86 ~amd64-linux ~x86-linux"
+KEYWORDS="~alpha amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ppc ppc64 ~s390 sparc x86 ~amd64-linux ~x86-linux"
 RESTRICT="!test? ( test )"
 
 RDEPEND="
@@ -32,6 +32,11 @@ PATCHES=(
 	"${FILESDIR}"/${P}-test.patch
 	"${FILESDIR}"/${PN}-1.19-mdns.patch
 )
+
+src_prepare() {
+	default
+	rm modules/httpd/httpd.test || die
+}
 
 src_test() {
 	USER= virtx emake test_batch

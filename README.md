@@ -8,7 +8,7 @@ or modified for my own purposes.
 Packages in this overlay may or may not be stable. In order words,
 ***use at your own risk!***
 
-By using this overlay, you agree to indemnify and hold harmless 
+By using this overlay, you agree to indemnify and hold harmless
 everyone, save yourself, from any liability that may arise from your
 use of this repository or anything therein.
 
@@ -27,7 +27,7 @@ as follows:
 
 ```
 # eselect repository add thentenaar git \
-          https://github.com/thentenaar/portage-overlay.git
+          https://github.com/thentenaar/portage-overlay
 # eselect repository enable thentenaar
 # emaint sync -r thentenaar
 ```
